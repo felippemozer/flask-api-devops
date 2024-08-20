@@ -5,3 +5,4 @@ exclude=
     .venv,
     .gitignore,
     requirements.txt
+filename=*.py
