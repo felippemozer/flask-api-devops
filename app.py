@@ -1,12 +1,8 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_restful import Resource, Api
 from flask_mongoengine import MongoEngine
 
 app = Flask(__name__)
-api = Api(app)
-db = MongoEngine(app)
-
-
 app.config["MONGODB_SETTINGS"] = {
     "db": "users",
     "host": "mongodb",
@@ -14,6 +10,8 @@ app.config["MONGODB_SETTINGS"] = {
     "username": "admin",
     "password": "admin"
 }
+api = Api(app)
+db = MongoEngine(app)
 
 
 class UserModel(db.Document):
@@ -26,7 +24,7 @@ class UserModel(db.Document):
 
 class Users(Resource):
     def get(self):
-        return {"message": "user 1"}
+        return jsonify(UserModel.objects())
 
 
 class User(Resource):
