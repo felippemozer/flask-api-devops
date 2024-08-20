@@ -5,13 +5,14 @@ services:
     image: mongo:5.0.8
     container_name: mongodb
     environment:
-      - MONGODB_INITDB_ROOT_USERNAME=admin
-        MONGODB_INITDB_ROOT_PASSWORD=admin
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
     restart: always
 
   api:
     build:
       context: .
+    container_name: api
     ports:
       - 5000:5000
     restart: always
