@@ -5,11 +5,11 @@ POST {{url}}/user HTTP/1.1
 Content-Type: application/json
 
 {
-    "cpf": "123.456.789-09",
+    "cpf": "017.759.880-82",
     "first_name": "Teste",
     "last_name": "Rachador",
     "email": "rachador@teste.com",
-    "birth_date": "1969-10-10"
+    "birth_date": "1971-10-10"
 }
 
 ###
