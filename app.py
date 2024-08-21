@@ -92,7 +92,12 @@ class User(Resource):
         return {"message": "User created"}, 201
 
     def get(self, cpf):
-        return {"message": cpf}
+        user = UserModel.objects(cpf=cpf)
+
+        if user:
+            return jsonify(user)
+
+        return {"message": "User not found"}, 404
 
 
 api.add_resource(Users, "/users")
