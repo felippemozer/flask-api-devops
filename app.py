@@ -83,7 +83,7 @@ class User(Resource):
         data = _user_parser.parse_args()
         if not self.validate_cpf(data["cpf"]):
             return {"message": "CPF is invalid!"}, 400
-        
+
         try:
             UserModel(**data).save()
         except mongoengine.errors.NotUniqueError:
