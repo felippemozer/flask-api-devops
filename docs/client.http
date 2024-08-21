@@ -14,3 +14,6 @@ Content-Type: application/json
 
 ###
 GET {{url}}/users HTTP/1.1
+
+###
+GET {{url}}/user/017.759.880-82 HTTP/1.1
