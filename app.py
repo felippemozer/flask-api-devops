@@ -1,6 +1,6 @@
 from flask import Flask, jsonify
 from flask_restful import Resource, Api, reqparse
-from flask_mongoengine import MongoEngine
+from flask_mongoengine import MongoEngine, mongoengine
 
 import re
 
@@ -81,9 +81,15 @@ class User(Resource):
 
     def post(self):
         data = _user_parser.parse_args()
-        UserModel(**data).save()
+        if not self.validate_cpf(data["cpf"]):
+            return {"message": "CPF is invalid!"}, 400
+        
+        try:
+            UserModel(**data).save()
+        except mongoengine.errors.NotUniqueError:
+            return {"message": "CPF already exists in database"}, 412
 
-        return jsonify(data)
+        return {"message": "User created"}, 201
 
     def get(self, cpf):
         return {"message": cpf}
