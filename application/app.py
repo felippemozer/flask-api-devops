@@ -92,4 +92,3 @@ class User(Resource):
             return jsonify(response)
         else:
             return {"message": "User not found"}, 404
-
