@@ -113,3 +113,24 @@ class TestApplication():
         response = client.patch("/user/%s" % cpf, json=valid_user)
 
         assert response.status_code == 404
+
+    def test_delete_user_success_when_user_deleted(self, client, valid_user):
+        cpf = self.generate_cpf()
+        post_user = {
+            **valid_user,
+            "cpf": cpf
+        }
+
+        client.post("/user", json=post_user)
+        response = client.delete("/user/%s" % cpf)
+
+        assert response.status_code == 200
+        assert b"User deleted" in response.data
+
+    def test_delete_user_success_when_user_not_found(self, client):
+        cpf = self.generate_cpf()
+
+        response = client.delete("/user/%s" % cpf)
+
+        assert response.status_code == 200
+        assert b"User already deleted" in response.data
