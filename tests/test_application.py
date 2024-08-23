@@ -4,7 +4,7 @@ import pytest
 import random
 
 
-class TestApplication():
+class TestApplication:
     # This function has been created by chatGPT
     # If you want to debug complain with it
     def generate_cpf(self):
@@ -22,9 +22,10 @@ class TestApplication():
         cpf.append(second_verification_digit)
 
         # Convert list of digits into a formatted string
-        cpf_str = ''.join(map(str, cpf))
-        formatted_cpf = f'{cpf_str[:3]}.{cpf_str[3:6]}.{cpf_str[6:9]}-' \
-                        f'{cpf_str[9:]}'
+        cpf_str = "".join(map(str, cpf))
+        formatted_cpf = (
+            f"{cpf_str[:3]}.{cpf_str[3:6]}.{cpf_str[6:9]}-{cpf_str[9:]}"
+        )
 
         return formatted_cpf
 
@@ -39,7 +40,7 @@ class TestApplication():
             "first_name": "Teste",
             "last_name": "Rachador",
             "email": "rachador@teste.com",
-            "birth_date": "1971-10-10"
+            "birth_date": "1971-10-10",
         }
 
     def test_get_users_success(self, client):
@@ -48,29 +49,21 @@ class TestApplication():
         assert response.status_code == 200
 
     def test_post_user_success(self, client, valid_user):
-        complete_user = {
-            **valid_user,
-            "cpf": self.generate_cpf()
-        }
+        complete_user = {**valid_user, "cpf": self.generate_cpf()}
 
         response = client.post("/user", json=complete_user)
 
         assert response.status_code == 201
 
     def test_post_user_fail_validate_cpf(self, client, valid_user):
-        invalid_user = {
-            **valid_user,
-            "cpf": "invalid"
-        }
+        invalid_user = {**valid_user, "cpf": "invalid"}
 
         response = client.post("/user", json=invalid_user)
 
         assert response.status_code == 400
 
     def test_post_user_fail_cpf_already_exists(self, client, valid_user):
-        cpf_preallocated_user = {
-            **valid_user, "cpf": "123.456.789-09"
-        }
+        cpf_preallocated_user = {**valid_user, "cpf": "123.456.789-09"}
 
         client.post("/user", json=cpf_preallocated_user)
         response = client.post("/user", json=cpf_preallocated_user)
@@ -93,14 +86,8 @@ class TestApplication():
 
     def test_patch_user_success(self, client, valid_user):
         valid_cpf = "123.456.789-09"
-        user = {
-            **valid_user,
-            "cpf": valid_cpf
-        }
-        updated_user = {
-            **valid_user,
-            "name": "tamo junto"
-        }
+        user = {**valid_user, "cpf": valid_cpf}
+        updated_user = {**valid_user, "name": "tamo junto"}
 
         client.post("/user", json=user)
         response = client.patch("/user/%s" % valid_cpf, json=updated_user)
@@ -116,10 +103,7 @@ class TestApplication():
 
     def test_delete_user_success_when_user_deleted(self, client, valid_user):
         cpf = self.generate_cpf()
-        post_user = {
-            **valid_user,
-            "cpf": cpf
-        }
+        post_user = {**valid_user, "cpf": cpf}
 
         client.post("/user", json=post_user)
         response = client.delete("/user/%s" % cpf)
