@@ -1,6 +1,7 @@
 from application import create_app
 
 import os
+import socket
 
 
 if os.getenv("FLASK_ENV") == "development":
@@ -10,4 +11,5 @@ else:
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0")
+    ip_address = socket.gethostbyname(socket.gethostname())
+    app.run(debug=True, host=ip_address)
