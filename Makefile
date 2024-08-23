@@ -4,7 +4,10 @@ lint:
 	@black . --check
 	@flake8
 
-test: lint
+codesec:
+	@bandit -c bandit.yml -r .
+
+test: lint codesec
 	@pytest -v --disable-warnings
 
 compose:
