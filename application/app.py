@@ -2,9 +2,17 @@ from flask import jsonify
 from flask_restful import Resource, reqparse
 from mongoengine import NotUniqueError
 
-from .model import UserModel
+from .model import UserModel, HealthCheckModel
 
 import re
+
+
+class HealthCheck(Resource):
+    def get(self):
+        response = HealthCheckModel.objects(status="OK")
+        if not response:
+            HealthCheckModel(status="OK").save()
+        return "OK", 200
 
 
 class Users(Resource):
