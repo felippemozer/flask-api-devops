@@ -17,3 +17,14 @@ GET {{url}}/users HTTP/1.1
 
 ###
 GET {{url}}/user/017.759.880-82 HTTP/1.1
+
+###
+PATCH {{url}}/user/017.759.880-82 HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "teste@teste.com",
+    "first_name": "Faaaaaaaaaaala",
+    "last_name": "Viado",
+    "birth_date": "1971-10-10"
+}
