@@ -6,3 +6,4 @@ exclude=
     .gitignore,
     requirements.txt
 filename=*.py
+max-line-length=88
