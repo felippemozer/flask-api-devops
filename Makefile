@@ -1,6 +1,7 @@
 APP = restapi
 
 lint:
+	@black . --check
 	@flake8
 
 test: lint
