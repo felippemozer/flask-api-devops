@@ -23,9 +23,7 @@ class TestApplication:
 
         # Convert list of digits into a formatted string
         cpf_str = "".join(map(str, cpf))
-        formatted_cpf = (
-            f"{cpf_str[:3]}.{cpf_str[3:6]}.{cpf_str[6:9]}-{cpf_str[9:]}"
-        )
+        formatted_cpf = f"{cpf_str[:3]}.{cpf_str[3:6]}.{cpf_str[6:9]}-{cpf_str[9:]}"
 
         return formatted_cpf
 
