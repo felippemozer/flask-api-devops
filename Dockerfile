@@ -8,6 +8,7 @@ COPY requirements.txt .
 
 RUN pip3 install -r requirements.txt
 
-COPY wsgi.py config.py application ./
+COPY wsgi.py config.py ./
+COPY application/ application/
 
 CMD [ "python", "wsgi.py" ]

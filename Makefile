@@ -1,4 +1,4 @@
-APP = restapi
+APP = restapi-flask
 
 lint:
 	@black . --check
@@ -14,7 +14,7 @@ compose:
 	@docker compose build
 	@docker compose up -d
 
-dev:
+start-dev:
 	@minikube start
 	# @kubectl apply -f k8s/config/config.yml
 	@helm upgrade \
@@ -27,6 +27,14 @@ dev:
 		--selector=app.kubernetes.io/component=mongodb \
 		--timeout=270s
 
+deploy-dev:
+	@docker build -t $(APP):latest .
+	@minikube image load $(APP):latest
+	@kubectl apply -f k8s/manifests
+	@kubectl rollout restart deploy $(APP)
+
+dev: start-dev deploy-dev
+
 clean:
 	@docker compose down
-	@minikube stop
+	@minikube delete
