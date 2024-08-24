@@ -4,6 +4,9 @@ kind: Ingress
 metadata:
   name: {{ include "restapi-flask.fullname" . }}
   labels: {{ include "restapi-flask.labels" . | nindent 4 }}
+  annotations:
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/scheme: internet-facing
 spec:
   rules:
   - host: api.localhost.com
