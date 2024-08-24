@@ -16,7 +16,6 @@ compose:
 
 start-dev:
 	@minikube start
-	# @kubectl apply -f k8s/config/config.yml
 	@helm upgrade \
 		--install \
 		--set image.tag=5.0.8 \
