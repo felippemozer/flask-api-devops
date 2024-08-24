@@ -1,0 +1,28 @@
+replicaCount: 10
+
+app:
+  port: 5000
+
+image:
+  registry: restapi-flask # * Para o caso de produção, usar a url do registry utilizado
+  tag: latest
+
+environmentVariables:
+  - name: FLASK_ENV
+    value: development
+
+environmentVariablesFrom:
+  - secretRef:
+      name: mongodb-credentials
+
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 5000
+readinessProbe:
+  httpGet:
+    path: /health
+    port: 5000
+  
+ingress:
+  enabled: false
