@@ -1,4 +1,4 @@
 resource "aws_ecr_repository" "this" {
-  name = "restapi"
+  name         = "restapi"
   force_delete = true
 }
